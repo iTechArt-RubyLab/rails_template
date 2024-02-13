@@ -1,0 +1,6 @@
+:concurrency: <%= Integer(ENV.fetch('SIDEKIQ_CONCURRENCY') { 5 }) %>
+:timeout: <%= Integer(ENV.fetch('SIDEKIQ_TIMEOUT_SECONDS') { 25 }) %>
+:queues:
+  - [ critical, 1 ]
+  - [ very_critical, 5 ]
+  - [ extremely_critical, 10 ]

@@ -1,0 +1,19 @@
+clear_log_and_tmp:
+  cron: '0 4 * * *'
+  class: 'Service::ClearLogAndTmpWorker'
+
+trim_inactive_sessions:
+  cron: '5 0 * * *'
+  class: 'Service::TrimInactiveSessionsWorker'
+
+pg_hero_capture_query_stats:
+  cron: '*/5 * * * *'
+  class: 'Service::PgHero::CaptureQueryStatsWorker'
+
+pg_hero_capture_space_stats:
+  cron: '0 0 * * *'
+  class: 'Service::PgHero::CaptureSpaceStatsWorker'
+
+pg_hero_clean_query_stats:
+  cron: '0 0 1 * *'
+  class: 'Service::PgHero::CleanQueryStatsWorker'
