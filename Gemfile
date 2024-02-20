@@ -70,8 +70,6 @@ gem 'telegram-bot-ruby', '~> 2.0'
 gem 'httparty', '~> 0.21.0'
 # Middleware that will make Rack-based apps CORS compatible
 gem 'rack-cors', '~> 2.0', '>= 2.0.1'
-# Access the contents of various spreadsheet files
-gem 'roo', '~> 2.10', '>= 2.10.1'
 
 
 # Parsers and formatters
@@ -80,6 +78,10 @@ gem 'roo', '~> 2.10', '>= 2.10.1'
 gem 'nokogiri', '~> 1.16', '>= 1.16.2'
 # Fast, tiny, and nimble PDF generator for Ruby
 gem 'prawn', '~> 2.4'
+# Access the contents of various spreadsheet files
+gem 'roo', '~> 2.10', '>= 2.10.1'
+# Uses the shell utility wkhtmltopdf to serve a PDF file to a user from HTML
+gem 'wicked_pdf', '~> 2.7'
 
 
 # Common
@@ -165,6 +167,9 @@ group :development do
 
   # Code style checking for RSpec files
   gem 'rubocop-rspec', '~> 2.26', '>= 2.26.1', require: false
+
+  # A plugin for Rake
+  gem 'rubocop-rake', '~> 0.6.0', require: false
 
   # This Rake task investigates the application's routes definition, then tells you unused routes and unreachable action methods
   gem 'traceroute', '~> 0.8.1'

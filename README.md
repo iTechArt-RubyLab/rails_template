@@ -1,3 +1,6 @@
+![CI](https://github.com/iTechArt-RubyLab/rails_template/actions/workflows/ci.yml/badge.svg)
+![Rubocop](https://github.com/iTechArt-RubyLab/rails_template/actions/workflows/rubocop_linter.yml/badge.svg)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
