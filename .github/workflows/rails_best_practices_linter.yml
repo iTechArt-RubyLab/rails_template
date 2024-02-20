@@ -1,4 +1,4 @@
-name: Rubocop linter
+name: Rails best practices linter
 
 on:
   pull_request:
@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  rubocop:
-    name: Rubocop
+  rails_best_practices:
+    name: Rails best practices
 
     runs-on: ubuntu-latest
 
@@ -21,5 +21,5 @@ jobs:
           bundler: 'Gemfile.lock'
           bundler-cache: true
 
-      - name: Run rubocop linting
-        run: bundle exec rubocop .
+      - name: Run rails best practices linting
+        run: bundle exec rails_best_practices .
