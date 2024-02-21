@@ -22,6 +22,8 @@ gem 'pghero', '~> 3.4', '>= 3.4.1'
 gem 'scenic', '~> 1.7'
 # A Ruby client that tries to match Redis' API one-to-one, while still providing an idiomatic interface
 gem 'redis', '~> 5.1'
+# Catch unsafe migrations in development
+gem 'strong_migrations', '~> 1.7'
 
 
 # Serialization
