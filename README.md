@@ -3,6 +3,7 @@
 ![Reek](https://github.com/iTechArt-RubyLab/rails_template/actions/workflows/reek_linter.yml/badge.svg)
 ![Rails best practices](https://github.com/iTechArt-RubyLab/rails_template/actions/workflows/rails_best_practices_linter.yml/badge.svg)
 ![Fasterer](https://github.com/iTechArt-RubyLab/rails_template/actions/workflows/fasterer_linter.yml/badge.svg)
+![Security](https://github.com/iTechArt-RubyLab/rails_template/actions/workflows/security.yml/badge.svg)
 
 # README
 
