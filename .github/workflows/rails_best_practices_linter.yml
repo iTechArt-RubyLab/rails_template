@@ -1,0 +1,25 @@
+name: Rails best practices linter
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  rails_best_practices:
+    name: Rails best practices
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler: 'Gemfile.lock'
+          bundler-cache: true
+
+      - name: Run rails best practices linting
+        run: bundle exec rails_best_practices .

@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+env:
+  RAILS_ENV: test
+  DB_USER: postgres
+  DB_PASSWORD: postgres
+  DB_HOST: localhost
+  DB_PORT: 5432
+  DB_TEST_NAME: postgres
+
+jobs:
+  rspec:
+    name: RSpec
+
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:10.18
+        env:
+          POSTGRES_USER: ${{ env.DB_USER }}
+          POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
+          POSTGRES_DB: ${{ env.DB_TEST_NAME }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Update system
+        run: sudo apt update
+
+      - name: Install postgres client
+        run: sudo apt -yqq install libpq-dev
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler: 'Gemfile.lock'
+          bundler-cache: true
+
+      - name: Bundle install
+        run: |
+          gem install bundler --no-document --version 2.5.3
+          bundle install --jobs 4 --retry 3
+
+      - name: Create test database
+        run: |
+          bundle exec rake db:create
+          bundle exec rake db:schema:load --trace

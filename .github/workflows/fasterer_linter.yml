@@ -1,0 +1,25 @@
+name: Fasterer linter
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  fasterer:
+    name: Fasterer
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler: 'Gemfile.lock'
+          bundler-cache: true
+
+      - name: Run fasterer linting
+        run: bundle exec fasterer .

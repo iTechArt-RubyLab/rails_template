@@ -1,0 +1,46 @@
+name: Security
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+env:
+  RAILS_ENV: test
+
+jobs:
+  brakeman:
+    name: Brakeman
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler: 'Gemfile.lock'
+          bundler-cache: true
+
+      - name: Run security vulnerabilities detector
+        run: bundle exec brakeman --ignore-config config/brakeman.ignore --exit-on-warn --exit-on-error .
+
+  bundle-audit:
+    name: Bundle-audit
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler: 'Gemfile.lock'
+          bundler-cache: true
+
+      - name: Update the ruby-advisory-db and check Gemfile.lock
+        run: bundle exec bundle-audit check . --update

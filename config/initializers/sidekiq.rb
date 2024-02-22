@@ -6,10 +6,16 @@ require 'sidekiq-status'
 require 'sidekiq-status/web'
 require 'sidekiq/throttled'
 
+timeouts = {
+  connect_timeout: 0.2,
+  read_timeout: 0.5,
+  write_timeout: 0.5
+}
+
 Sidekiq.configure_server do |config|
   config.redis = {
     url: ENV['REDIS_URL']
-  }
+  }.merge(timeouts)
 
   config.client_middleware do |chain|
     chain.add Sidekiq::Status::ClientMiddleware, expiration: 30.minutes.to_i
@@ -39,7 +45,7 @@ end
 Sidekiq.configure_client do |config|
   config.redis = {
     url: ENV['REDIS_URL']
-  }
+  }.merge(timeouts)
 
   config.client_middleware do |chain|
     chain.add Sidekiq::Status::ClientMiddleware, expiration: 30.minutes.to_i
