@@ -40,3 +40,5 @@
 .yarn-error.log*
 
 /public/assets
+
+erd.pdf

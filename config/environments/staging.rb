@@ -72,6 +72,10 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "rails_template_production"
 
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = {
+    host: ENV['URL_HOST'],
+    protocol: ENV['URL_PROTOCOL']
+  }
   config.action_mailer.smtp_settings = {
     user_name: ENV['MAILTRAP_USER_NAME'],
     password: ENV['MAILTRAP_PASSWORD'],
@@ -79,10 +83,6 @@ Rails.application.configure do
     domain: ENV['MAILTRAP_DOMAIN'],
     port: ENV['MAILTRAP_PORT'],
     authentication: :cram_md5
-  }
-  config.action_mailer.default_url_options = {
-    host: ENV['URL_HOST'],
-    protocol: ENV['URL_PROTOCOL']
   }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.perform_caching = false

@@ -26,6 +26,16 @@ gem 'redis', '~> 5.1'
 gem 'strong_migrations', '~> 1.7'
 
 
+# Authentication and authorization
+
+# Flexible authentication solution for Rails with Warden
+gem 'devise', '~> 4.9', '>= 4.9.3'
+# A generalized Rack framework for multiple-provider authentication
+gem 'omniauth', '~> 2.1', '>= 2.1.2'
+# Adds support for send invitations by email and accept the invitation by setting a password
+gem 'devise_invitable', '~> 2.0', '>= 2.0.9'
+
+
 # Serialization
 
 # Create JSON structures via a Builder-style DSL
