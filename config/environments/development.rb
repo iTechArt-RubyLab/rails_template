@@ -79,6 +79,10 @@ Rails.application.configure do
 
   config.active_record.warn_on_records_fetched_greater_than = 1_500
 
+  config.active_record.encryption.primary_key = ENV['ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY']
+  config.active_record.encryption.deterministic_key = ENV['ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY']
+  config.active_record.encryption.key_derivation_salt = ENV['ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT']
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
