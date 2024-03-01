@@ -72,6 +72,10 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "rails_template_production"
 
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = {
+    host: ENV['URL_HOST'],
+    protocol: ENV['URL_PROTOCOL']
+  }
   config.action_mailer.smtp_settings = {
     user_name: ENV['MAILTRAP_USER_NAME'],
     password: ENV['MAILTRAP_PASSWORD'],
@@ -79,10 +83,6 @@ Rails.application.configure do
     domain: ENV['MAILTRAP_DOMAIN'],
     port: ENV['MAILTRAP_PORT'],
     authentication: :cram_md5
-  }
-  config.action_mailer.default_url_options = {
-    host: ENV['URL_HOST'],
-    protocol: ENV['URL_PROTOCOL']
   }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.perform_caching = false
@@ -99,6 +99,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.active_record.encryption.primary_key = ENV['ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY']
+  config.active_record.encryption.deterministic_key = ENV['ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY']
+  config.active_record.encryption.key_derivation_salt = ENV['ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT']
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [

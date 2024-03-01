@@ -1,0 +1,10 @@
+en:
+  two_factor_auth_settings:
+    already_enabled: 'Two factor authentication is already enabled.'
+    password_invalid: 'Invalid password.'
+    two_factor_auth_enabled: 'Successfully enabled two factor authentication, please make note of your backup codes.'
+    enable_two_factor_auth: 'Please, enable two factor authentication first.'
+    backup_codes_seen: 'You have already seen your backup codes.'
+    two_factor_auth_disabled: 'Successfully disabled two factor authentication.'
+    could_not_disable_two_factor_auth: 'Could not disable two factor authentication.'
+    two_factor_auth_code_invalid: 'Invalid two-factor authentication code.'

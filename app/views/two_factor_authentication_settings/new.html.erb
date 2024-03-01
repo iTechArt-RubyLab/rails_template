@@ -1,0 +1,15 @@
+<p>Two Factor Authentication</p>
+
+<p>1. Scan QR Code</p>
+<p>Please, scan the below QR code using an OTP compatible app (such as Google Authenticator or Authy)</p>
+<p><%= qr_code_as_svg(current_user.two_factor_auth_qr_code_uri)%></p>
+<p>If you cannot scan, please enter the following code manually: <code><%= current_user.otp_secret%></code></p>
+
+<p>2. Confirm OTP Code</p>
+<p>Please, confirm that your authentication application is working by entering a generated code below</p>
+
+<%= simple_form_for(:two_factor_auth, url: two_factor_authentication_settings_path, method: :post) do |f| %>
+  <%= f.input :code %>
+  <%= f.input :password, label: 'Enter your current password' %>
+  <%= f.submit 'Confirm and Enable Two Factor Auth' %>
+<% end %>

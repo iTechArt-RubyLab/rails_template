@@ -1,0 +1,10 @@
+<p>Two Factor Authentication</p>
+<p>Backup Codes</p>
+<p>Keep these backup codes safe in case you lose access to your authenticator app:</p>
+<% @backup_codes.each do |code| %>
+  <p><%=code %></p>
+<% end %>
+
+<p>Two Factor Auth Setup Complete</p>
+<p>Two factor authentication has been successfully enabled.</p>
+<%= link_to('Return to account settings', edit_user_registration_path) %>

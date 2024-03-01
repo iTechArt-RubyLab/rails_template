@@ -1,0 +1,6 @@
+<p>Two Factor Authentication</p>
+
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), method: :post) do |f| %>
+  <%= f.input :otp_attempt, label: 'OTP' %>
+  <%= f.submit 'Login' %>
+<% end %>

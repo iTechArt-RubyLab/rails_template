@@ -26,6 +26,19 @@ gem 'redis', '~> 5.1'
 gem 'strong_migrations', '~> 1.7'
 
 
+# Authentication and authorization
+
+# Flexible authentication solution for Rails with Warden
+gem 'devise', '~> 4.9', '>= 4.9.3'
+# A generalized Rack framework for multiple-provider authentication
+gem 'omniauth', '~> 2.1', '>= 2.1.2'
+# Adds support for send invitations by email and accept the invitation by setting a password
+gem 'devise_invitable', '~> 2.0', '>= 2.0.9'
+# Barebones two-factor authentication with Devise
+gem 'devise-two-factor', '~> 5.0'
+# Library for encoding QR Codes
+gem 'rqrcode', '~> 2.2'
+
 # Serialization
 
 # Create JSON structures via a Builder-style DSL
@@ -105,7 +118,8 @@ gem 'matrix', '~> 0.4.2'
 gem 'sprockets-rails', '~> 3.4', '>= 3.4.2'
 # Rails engine for Turbolinks 5 support
 gem 'turbolinks', '~> 5.2', '>= 5.2.1'
-
+# Forms made easy
+gem 'simple_form', '~> 5.3'
 
 group :development, :test do
   # Brakeman detects security vulnerabilities in Ruby on Rails applications via static analysis
