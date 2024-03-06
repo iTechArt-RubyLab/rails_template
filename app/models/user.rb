@@ -24,13 +24,16 @@
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
 #  locked_at              :datetime
+#  name                   :string
 #  otp_backup_codes       :string           is an Array
 #  otp_required_for_login :boolean
 #  otp_secret             :string
+#  provider               :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  sign_in_count          :integer          default(0), not null
+#  uid                    :string
 #  unconfirmed_email      :string
 #  unlock_token           :string
 #  created_at             :datetime         not null
@@ -45,6 +48,7 @@
 #  index_users_on_invited_by            (invited_by_type,invited_by_id)
 #  index_users_on_invited_by_id         (invited_by_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 class User < ApplicationRecord
@@ -58,7 +62,6 @@ class User < ApplicationRecord
             lockable
             timeoutable
             trackable
-            omniauthable
           )
 
   # devise :database_authenticatable
@@ -68,6 +71,8 @@ class User < ApplicationRecord
          otp_backup_code_length: 16,
          otp_number_of_backup_codes: 10,
          otp_secret_encryption_key: ENV['OTP_SECRET_KEY']
+
+  devise :omniauthable, omniauth_providers: %i(google_oauth2)
 
   has_many :invitees, class_name: 'User', foreign_key: :invited_by_id
 
@@ -92,5 +97,17 @@ class User < ApplicationRecord
 
   def two_factor_auth_backup_codes_generated?
     otp_backup_codes.present?
+  end
+
+  def self.from_omniauth(auth)
+    find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.name = auth.info.name   # assuming the user model has a name
+
+      # If you are using confirmable and the provider(s) you use validate emails,
+      # uncomment the line below to skip the confirmation emails.
+      user.skip_confirmation!
+    end
   end
 end

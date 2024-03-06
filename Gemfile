@@ -32,6 +32,10 @@ gem 'strong_migrations', '~> 1.7'
 gem 'devise', '~> 4.9', '>= 4.9.3'
 # A generalized Rack framework for multiple-provider authentication
 gem 'omniauth', '~> 2.1', '>= 2.1.2'
+# A Google OAuth2 strategy for OmniAuth 1.x
+gem 'omniauth-google-oauth2', '~> 1.1', '>= 1.1.1'
+# Provides a mitigation against Cross-Site Request Forgery on the request phrase when using OmniAuth gem
+gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
 # Adds support for send invitations by email and accept the invitation by setting a password
 gem 'devise_invitable', '~> 2.0', '>= 2.0.9'
 # Barebones two-factor authentication with Devise
