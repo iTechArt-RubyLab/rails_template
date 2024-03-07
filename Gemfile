@@ -34,6 +34,8 @@ gem 'devise', '~> 4.9', '>= 4.9.3'
 gem 'omniauth', '~> 2.1', '>= 2.1.2'
 # A Google OAuth2 strategy for OmniAuth 1.x
 gem 'omniauth-google-oauth2', '~> 1.1', '>= 1.1.1'
+# Official OmniAuth strategy for GitHub
+gem 'omniauth-github', '~> 2.0', '>= 2.0.1'
 # Provides a mitigation against Cross-Site Request Forgery on the request phrase when using OmniAuth gem
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
 # Adds support for send invitations by email and accept the invitation by setting a password

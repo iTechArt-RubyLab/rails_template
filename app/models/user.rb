@@ -43,12 +43,12 @@
 # Indexes
 #
 #  index_users_on_confirmation_token    (confirmation_token) UNIQUE
-#  index_users_on_email                 (email) UNIQUE
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invited_by            (invited_by_type,invited_by_id)
 #  index_users_on_invited_by_id         (invited_by_id)
+#  index_users_on_provider_and_email    (provider,email) UNIQUE
+#  index_users_on_provider_and_uid      (provider,uid) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 class User < ApplicationRecord
@@ -72,7 +72,7 @@ class User < ApplicationRecord
          otp_number_of_backup_codes: 10,
          otp_secret_encryption_key: ENV['OTP_SECRET_KEY']
 
-  devise :omniauthable, omniauth_providers: %i(google_oauth2)
+  devise :omniauthable, omniauth_providers: %i(google_oauth2 github)
 
   has_many :invitees, class_name: 'User', foreign_key: :invited_by_id
 
@@ -109,5 +109,9 @@ class User < ApplicationRecord
       # uncomment the line below to skip the confirmation emails.
       user.skip_confirmation!
     end
+  end
+
+  def devise_will_save_change_to_email?
+    false
   end
 end
