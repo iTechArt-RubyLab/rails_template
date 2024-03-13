@@ -44,11 +44,15 @@ gem 'devise_invitable', '~> 2.0', '>= 2.0.9'
 gem 'devise-two-factor', '~> 5.0'
 # Library for encoding QR Codes
 gem 'rqrcode', '~> 2.2'
+# JWT authentication for devise with configurable token revocation strategies
+gem 'devise-jwt', '~> 0.11.0'
 
 # Serialization
 
 # Create JSON structures via a Builder-style DSL
 gem 'jbuilder', '~> 2.11', '>= 2.11.5'
+# Fast, simple and easy to use JSON:API serialization library (also known as fast_jsonapi)
+gem 'jsonapi-serializer', '~> 2.2'
 
 
 # Concurrency and processes
