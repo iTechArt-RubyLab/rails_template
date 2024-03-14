@@ -11,9 +11,9 @@ Rails.application.routes.draw do
   ).map { |controller| { controller => "users/#{controller}" } }.reduce(:merge)
 
   devise_for :api_users, path: '', path_names: {
-    sign_in: 'api_sign_in',
-    sign_out: 'api_sign_out',
-    registration: 'api_sign_up'
+    sign_in: 'api/users/sign_in',
+    sign_out: 'api/users/sign_out',
+    registration: 'api/users/sign_up'
   },
   controllers: {
     sessions: 'api_users/sessions',

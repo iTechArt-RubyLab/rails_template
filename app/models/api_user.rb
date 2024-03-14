@@ -24,6 +24,8 @@ class ApiUser < ApplicationRecord
          :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
+  validates :jti, presence: true
+
   def jwt_payload
     super
   end
