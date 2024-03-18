@@ -29,3 +29,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+curl -v -X POST http://localhost:3001/api/users/sign_up -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"api_user": {"email":"api_user_example@test.com", "password":"123456", "password_confirmation":"123456"}}'
+curl -v -X POST http://localhost:3001/api/users/sign_in -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"api_user": {"email":"api_user_example@test.com", "password":"123456"}}'
+curl -v -X DELETE http://localhost:3001/api/users/sign_out -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Authorization: Bearer XYZ'

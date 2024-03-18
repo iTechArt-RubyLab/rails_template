@@ -10,6 +10,16 @@ Rails.application.routes.draw do
     unlocks
   ).map { |controller| { controller => "users/#{controller}" } }.reduce(:merge)
 
+  devise_for :api_users, path: '', path_names: {
+    sign_in: 'api/users/sign_in',
+    sign_out: 'api/users/sign_out',
+    registration: 'api/users/sign_up'
+  },
+  controllers: {
+    sessions: 'api_users/sessions',
+    registrations: 'api_users/registrations'
+  }
+
   mount Sidekiq::Web, at: '/sidekiq'
   mount PgHero::Engine, at: '/pghero'
 
