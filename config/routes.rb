@@ -10,19 +10,6 @@ Rails.application.routes.draw do
     unlocks
   ).map { |controller| { controller => "users/#{controller}" } }.reduce(:merge)
 
-  devise_for :api_users, path: '', path_names: {
-    sign_in: 'api/users/sign_in',
-    sign_out: 'api/users/sign_out',
-    registration: 'api/users/sign_up'
-  },
-  controllers: {
-    sessions: 'api_users/sessions',
-    registrations: 'api_users/registrations'
-  }
-
-  mount Sidekiq::Web, at: '/sidekiq'
-  mount PgHero::Engine, at: '/pghero'
-
   devise_scope :user do
     authenticated :user do
       root to: 'home#homepage'
@@ -33,11 +20,41 @@ Rails.application.routes.draw do
     end
   end
 
+
+  devise_for :api_users, path: '', controllers: {
+    sessions: 'api/users/sessions',
+    registrations: 'api/users/registrations'
+  }, skip: %i(sessions registrations)
+
+  devise_scope :api_user do
+    defaults format: :json do
+      post 'api/users/sign_up', to: 'api/users/registrations#create'
+      post 'api/users/sign_in', to: 'api/users/sessions#create'
+      delete 'api/users/sign_out', to: 'api/users/sessions#destroy'
+    end
+  end
+
+
+  mount Sidekiq::Web, at: '/sidekiq'
+  mount PgHero::Engine, at: '/pghero'
+  mount Rswag::Ui::Engine, at: '/api-docs'
+  mount Rswag::Api::Engine, at: '/api-docs'
+
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   resource :two_factor_authentication_settings, except: %i(index show)
+
+  namespace :api do
+    namespace :v1 do
+      defaults format: :json do
+        resources :users, only: %i(index show)
+        get '/current_user', to: 'users#current_user'
+      end
+    end
+  end
 
   get 'pdf', to: 'pdfs#print'
 end

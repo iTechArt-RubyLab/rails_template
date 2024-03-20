@@ -1,3 +1,5 @@
+require 'letter_opener'
+
 LetterOpener.configure do |config|
   # To overrider the location for message storage.
   # Default value is `tmp/letter_opener`
