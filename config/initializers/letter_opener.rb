@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'letter_opener'
 
 LetterOpener.configure do |config|
