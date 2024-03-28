@@ -131,6 +131,12 @@ gem 'turbolinks', '~> 5.2', '>= 5.2.1'
 # Forms made easy
 gem 'simple_form', '~> 5.3'
 
+# A Rails Engine that exposes OpenAPI (formerly called Swagger) files as JSON endpoints
+gem 'rswag-api', '~> 2.13'
+# Expose API documentation, powered by Swagger JSON endpoints
+gem 'rswag-ui', '~> 2.13'
+
+
 group :development, :test do
   # Brakeman detects security vulnerabilities in Ruby on Rails applications via static analysis
   gem 'brakeman', '~> 6.1', '>= 6.1.2'
@@ -164,6 +170,12 @@ group :development, :test do
 
   # A tool that examines Ruby classes, modules and methods and reports any code smells it finds
   gem 'reek', '~> 6.3'
+
+  # Testing framework for Rails 5+
+  gem 'rspec-rails', '~> 6.1', '>= 6.1.2'
+
+  # API integration testing with a succinct rspec DSL and generate OpenAPI specification files directly from your rspec tests
+  gem 'rswag-specs', '~> 2.13'
 end
 
 group :development do

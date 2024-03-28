@@ -1,0 +1,109 @@
+---
+openapi: 3.0.1
+info:
+  title: Rails Template API V1
+  version: v1
+  description: Rswag Rails Template API
+paths:
+  "/api/users/sign_up":
+    post:
+      summary: create registration
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+                    password_confirmation:
+                      type: string
+                  required:
+                  - email
+                  - password
+                  - password_confirmation
+  "/api/users/sign_in":
+    post:
+      summary: create session
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+                  required:
+                  - email
+                  - password
+  "/api/users/sign_out":
+    delete:
+      summary: delete session
+      security:
+      - BearerAuth: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/users":
+    get:
+      summary: list users
+      security:
+      - BearerAuth: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/users/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show user
+      security:
+      - BearerAuth: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/current_user":
+    get:
+      summary: show current user
+      security:
+      - BearerAuth: []
+      responses:
+        '200':
+          description: successful
+servers:
+- url: http://{defaultHost}
+  description: Local development
+  variables:
+    defaultHost:
+      default: localhost:3001
+components:
+  securitySchemes:
+    BearerAuth:
+      description: Bearer Authentication
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      in: header
