@@ -74,7 +74,14 @@ class User < ApplicationRecord
 
   devise :omniauthable, omniauth_providers: %i(google_oauth2 github)
 
+  rolify
+
+  after_create :assign_default_role
+
   has_many :invitees, class_name: 'User', foreign_key: :invited_by_id
+
+  validate :role_should_be_present, on: :update
+
 
   def generate_two_factor_auth_secret_if_missing!
     otp_secret.blank? && update!(otp_secret: User.generate_otp_secret)
@@ -113,5 +120,15 @@ class User < ApplicationRecord
 
   def devise_will_save_change_to_email?
     false
+  end
+
+  private
+
+  def assign_default_role
+    self.add_role(ROLES[:viewer]) if self.roles.blank?
+  end
+
+  def role_should_be_present
+    errors.add(:roles, I18n.t('roles.should_be_present')) if roles.blank?
   end
 end

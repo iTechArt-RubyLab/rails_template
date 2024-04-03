@@ -1,5 +1,8 @@
 <% if user_signed_in? %>
   <p>
+    Are you an admin? <%= current_user.has_role?(:admin) ? 'Yes' : 'No' %>
+  </p>
+  <p>
     User <%= current_user.email %> signed in at <%= current_user.current_sign_in_at %> from <%= current_user.current_sign_in_ip %>
     with last sign in at <%= current_user.last_sign_in_at %> from <%= current_user.last_sign_in_ip %>
     totalling <%= current_user.sign_in_count %> sign ins.

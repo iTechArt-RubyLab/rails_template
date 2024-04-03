@@ -29,3 +29,9 @@
 
 en:
   hello: "Hello world"
+  authorization:
+    not_authorized: 'You are not authorized to perform this action.'
+  users:
+    successfully_updated: 'User has been successfully updated.'
+  roles:
+    should_be_present: 'A role should be present.'
