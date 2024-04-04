@@ -46,6 +46,11 @@ gem 'devise-two-factor', '~> 5.0'
 gem 'rqrcode', '~> 2.2'
 # JWT authentication for devise with configurable token revocation strategies
 gem 'devise-jwt', '~> 0.11.0'
+# Very simple Roles library without any authorization enforcement supporting scope on resource objects
+gem 'rolify', '~> 6.0', '>= 6.0.1'
+# Object oriented authorization for Rails applications
+gem 'pundit', '~> 2.3', '>= 2.3.1'
+
 
 # Serialization
 

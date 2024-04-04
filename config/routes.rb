@@ -56,5 +56,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, except: :destroy
+
   get 'pdf', to: 'pdfs#print'
 end
