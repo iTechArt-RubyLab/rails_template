@@ -8,6 +8,6 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-ROLES.values.each do |name|
-  Role.find_or_create_by!(name: name)
+[Role::MANAGER, Role::ADMIN, Role::VIEWER].each do |role|
+  Role.find_or_create_by!(name: role)
 end

@@ -1,9 +1,19 @@
-<% @users.each.with_index(1) do |user, ix| %>
-  <%= ix %>
-  <%= user.email %>
-  <%= user.roles.pluck(:name).join(', ') %>
-  <%= link_to 'Show', user_path(user) %>
-  <%= link_to 'Edit roles', edit_user_path(user) %>
-  <br>
-  <br>
-<% end %>
+<div id="users">
+  <% @users.each do |user| %>
+    <%= user.id %>
+    <%= user.email %>
+    <%= user.roles.pluck(:name).join(', ') %>
+
+    <p>
+      <%= link_to 'Show', user_path(user) %>
+    </p>
+    <p>
+      <%= link_to 'Edit roles', edit_user_path(user) %>
+    </p>
+
+    <br>
+    <br>
+  <% end %>
+</div>
+
+<%= paginate @users %>

@@ -4,16 +4,16 @@ class UserPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      if @user.has_role?(ROLES[:admin])
+      if @user.has_role?(Role::ADMIN)
         scope.all
       else
-        scope.without_role(ROLES[:admin])
+        scope.without_role(Role::ADMIN)
       end
     end
   end
 
   def index?
-    @user.has_any_role?(ROLES[:admin], ROLES[:viewer])
+    @user.has_any_role?(Role::ADMIN, Role::VIEWER)
   end
 
   def show?
@@ -25,6 +25,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.has_role?(ROLES[:admin])
+    @user.has_role?(Role::ADMIN)
   end
 end

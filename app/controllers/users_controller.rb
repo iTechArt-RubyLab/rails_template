@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i(show edit update)
 
   def index
-    @users = policy_scope(User).includes(:roles).order(created_at: :desc)
+    @users = policy_scope(User).includes(:roles).order(created_at: :desc).page(params[:page])
 
     authorize @users
   end
