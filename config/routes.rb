@@ -34,9 +34,11 @@ Rails.application.routes.draw do
     end
   end
 
+  authenticate :user, ->(user) { user.allowed_to_access_dashboards? } do
+    mount Sidekiq::Web, at: '/sidekiq'
+    mount PgHero::Engine, at: '/pghero'
+  end
 
-  mount Sidekiq::Web, at: '/sidekiq'
-  mount PgHero::Engine, at: '/pghero'
   mount Rswag::Ui::Engine, at: '/api-docs'
   mount Rswag::Api::Engine, at: '/api-docs'
 

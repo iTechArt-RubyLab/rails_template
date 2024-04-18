@@ -17,6 +17,10 @@
 #  index_roles_on_resource                                (resource_type,resource_id)
 #
 class Role < ApplicationRecord
+  MANAGER = 'manager'.freeze
+  ADMIN = 'admin'.freeze
+  VIEWER = 'viewer'.freeze
+
   has_and_belongs_to_many :users, join_table: :users_roles
   
   belongs_to :resource, polymorphic: true, optional: true

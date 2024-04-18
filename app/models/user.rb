@@ -122,10 +122,14 @@ class User < ApplicationRecord
     false
   end
 
+  def allowed_to_access_dashboards?
+    has_role?(Role::MANAGER)
+  end
+
   private
 
   def assign_default_role
-    self.add_role(ROLES[:viewer]) if self.roles.blank?
+    self.add_role(Role::VIEWER) if self.roles.blank?
   end
 
   def role_should_be_present
