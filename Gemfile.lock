@@ -213,6 +213,11 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-protobuf (3.25.2)
+    google-protobuf (3.25.2-aarch64-linux)
+    google-protobuf (3.25.2-arm64-darwin)
+    google-protobuf (3.25.2-x86-linux)
+    google-protobuf (3.25.2-x86_64-darwin)
+    google-protobuf (3.25.2-x86_64-linux)
     hashie (5.0.0)
     honeybadger (5.4.1)
     httparty (0.21.0)
@@ -692,7 +697,7 @@ DEPENDENCIES
   wicked_pdf (~> 2.7)
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.5.3
