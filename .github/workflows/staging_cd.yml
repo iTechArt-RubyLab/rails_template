@@ -1,0 +1,56 @@
+name: Staging CD
+
+on:
+  pull_request:
+    branches:
+      - staging
+    types: [closed]
+
+jobs:
+  cd:
+    if: github.event.pull_request.merged == true
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set deployment package name
+        run: echo "DEPLOY_PACKAGE=app-${{ github.sha }}-$(date -u +"%Y-%m-%d-%H-%M").zip" >> $GITHUB_ENV
+
+      - name: Create zip deployment package
+        run: zip -r ${{ env.DEPLOY_PACKAGE }} ./
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload deployment package to S3 bucket
+        run: aws s3 cp ${{ env.DEPLOY_PACKAGE }} s3://${{ secrets.EB_APP_PACKAGE_S3_BUCKET }}/${{ secrets.STAGING_EB_APP_PACKAGE_S3_KEY_SUBFOLDER }}/
+
+      - name: Set application version label
+        run: echo "VERSION_LABEL=App-${{ github.sha }}" >> $GITHUB_ENV
+
+      - name: Create new aws elastic beanstalk staging application version
+        run: |
+          aws elasticbeanstalk create-application-version \
+          --application-name ${{ secrets.EB_APP_NAME }} \
+          --source-bundle S3Bucket="${{ secrets.EB_APP_PACKAGE_S3_BUCKET }}",S3Key="${{ secrets.STAGING_EB_APP_PACKAGE_S3_KEY_SUBFOLDER }}/${{ env.DEPLOY_PACKAGE }}" \
+          --region ${{ secrets.AWS_REGION }} \
+          --version-label ${{ env.VERSION_LABEL }} \
+          --description "Commit-sha-${{ github.sha }}"
+
+      - name: Deploy new application version to elastic beanstalk staging web tier
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ secrets.EB_APP_NAME }}
+          environment_name: ${{ secrets.STAGING_EB_WEB_ENV_NAME }}
+          version_label: ${{ env.VERSION_LABEL }}
+          region: ${{ secrets.AWS_REGION }}
+          wait_for_deployment: true
