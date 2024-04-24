@@ -63,7 +63,7 @@ gem 'jsonapi-serializer', '~> 2.2'
 # Concurrency and processes
 
 # Simple, fast, threaded, and highly parallel HTTP 1.1 server for Ruby/Rack applications
-gem 'puma', '~> 6.4', '>= 6.4.2'
+gem 'puma', '~> 6.4', '>= 6.4.2', groups: %i(development test)
 # Popen, but with stderr, too
 gem 'open3', '~> 0.2.1'
 
