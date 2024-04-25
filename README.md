@@ -36,8 +36,8 @@ curl -v -X POST http://localhost:3001/api/users/sign_in -H 'Content-Type: applic
 
 curl -v -X DELETE http://localhost:3001/api/users/sign_out -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Authorization: Bearer XYZ'
 
-curl -X GET 'localhost:3001/api/v1/users' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Authorization: Bearer XYZ'
+curl -X GET http://localhost:3001/api/v1/users -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Authorization: Bearer XYZ'
 
-curl -X GET 'localhost:3001/api/v1/users/1' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Authorization: Bearer XYZ'
+curl -X GET http://localhost:3001/api/v1/users/1 -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Authorization: Bearer XYZ'
 
-curl -X GET 'localhost:3001/api/v1/current_user' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Authorization: Bearer XYZ'
+curl -X GET http://localhost:3001/api/v1/current_user -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Authorization: Bearer XYZ'
