@@ -54,6 +54,8 @@ Rails.application.routes.draw do
       defaults format: :json do
         resources :users, only: %i(index show)
         get '/current_user', to: 'users#current_user'
+
+        get '/charts_data', to: 'charts#data'
       end
     end
   end
