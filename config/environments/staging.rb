@@ -71,6 +71,8 @@ Rails.application.configure do
   # config.active_job.queue_adapter = :resque
   # config.active_job.queue_name_prefix = "rails_template_production"
 
+  Rails.application.routes.default_url_options[:host] = "#{ENV['URL_PROTOCOL']}://#{ENV['URL_HOST']}/"
+
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = {
     host: ENV['URL_HOST'],
