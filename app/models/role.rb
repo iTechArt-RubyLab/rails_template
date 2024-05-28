@@ -28,4 +28,16 @@ class Role < ApplicationRecord
   validates :resource_type, inclusion: { in: Rolify.resource_types }, allow_nil: true
 
   scopify
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w(
+      id
+      id_value
+      name
+      resource_id
+      resource_type
+      created_at
+      updated_at
+    )
+  end
 end

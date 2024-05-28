@@ -141,6 +141,11 @@ gem 'rswag-api', '~> 2.13'
 # Expose API documentation, powered by Swagger JSON endpoints
 gem 'rswag-ui', '~> 2.13'
 
+# The administration framework for Ruby on Rails
+gem 'activeadmin', '~> 3.2', '>= 3.2.1'
+
+# Sass adapter for the Rails asset pipeline
+gem 'sass-rails', '~> 6.0'
 
 group :development, :test do
   # Brakeman detects security vulnerabilities in Ruby on Rails applications via static analysis
