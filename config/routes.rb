@@ -34,6 +34,11 @@ Rails.application.routes.draw do
     end
   end
 
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+
+
   authenticate :user, ->(user) { user.allowed_to_access_dashboards? } do
     mount Sidekiq::Web, at: '/sidekiq'
     mount PgHero::Engine, at: '/pghero'
