@@ -198,6 +198,9 @@ group :development do
   # Help to kill N+1 queries and unused eager loading
   gem 'bullet', '~> 7.1', '>= 7.1.6'
 
+  # Provide an easy way to check the consistency of the database constraints with the application validations
+  gem 'database_consistency', '~> 1.7', '>= 1.7.23', require: false
+
   # When mail is sent from your application, it will open a preview in the browser instead of sending
   gem 'letter_opener', '~> 1.8', '>= 1.8.1'
 

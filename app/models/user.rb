@@ -26,7 +26,7 @@
 #  locked_at              :datetime
 #  name                   :string
 #  otp_backup_codes       :string           is an Array
-#  otp_required_for_login :boolean
+#  otp_required_for_login :boolean          default(FALSE), not null
 #  otp_secret             :string
 #  provider               :string
 #  remember_created_at    :datetime
@@ -50,6 +50,10 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (invited_by_id => users.id)
 #
 class User < ApplicationRecord
   devise *%i(
@@ -82,6 +86,12 @@ class User < ApplicationRecord
 
   validate :role_should_be_present, on: :update
 
+  validates :uid, uniqueness: { scope: :provider }, allow_nil: true
+  validates :email, presence: true, uniqueness: { scope: :provider }
+
+  %i(invitation_token confirmation_token unlock_token reset_password_token).each do |token|
+    validates token, uniqueness: true, allow_nil: true
+  end
 
   def generate_two_factor_auth_secret_if_missing!
     otp_secret.blank? && update!(otp_secret: User.generate_otp_secret)
