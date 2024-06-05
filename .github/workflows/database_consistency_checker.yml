@@ -1,0 +1,25 @@
+name: Database consistency checker
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  database_consistency:
+    name: Database consistency
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler: 'Gemfile.lock'
+          bundler-cache: true
+
+      - name: Run database consistency checking
+        run: bundle exec database_consistency .

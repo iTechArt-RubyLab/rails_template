@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_28_084209) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_03_091132) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -113,6 +113,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_084209) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "otp_backup_codes", array: true
+    t.string "otp_secret"
+    t.integer "consumed_timestep"
+    t.boolean "otp_required_for_login", default: false, null: false
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -121,10 +125,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_084209) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.string "otp_secret"
-    t.integer "consumed_timestep"
-    t.boolean "otp_required_for_login"
-    t.string "otp_backup_codes", array: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email", "provider"], name: "index_users_on_email_and_provider", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -140,7 +140,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_28_084209) do
     t.bigint "role_id"
     t.index ["role_id"], name: "index_users_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
-    t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "users", "users", column: "invited_by_id"
 end

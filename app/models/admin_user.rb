@@ -26,6 +26,9 @@ class AdminUser < ApplicationRecord
          :rememberable,
          :validatable
 
+  validates :email, presence: true, uniqueness: true
+  validates :reset_password_token, uniqueness: true
+
   def self.ransackable_attributes(_auth_object = nil)
     %w(id id_value email encrypted_password remember_created_at reset_password_sent_at reset_password_token created_at updated_at)
   end
