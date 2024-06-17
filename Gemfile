@@ -127,6 +127,9 @@ gem 'paper_trail', '~> 15.1'
 # Re-implementation of acts_as_paranoid performing soft deleting on a record
 gem 'paranoia', '~> 2.6', '>= 2.6.3'
 
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', require: false
 # An implementation of Matrix and Vector classes
 gem 'matrix', '~> 0.4.2'
 # Sprockets Rails integration
