@@ -5,7 +5,7 @@
 ![Fasterer](https://github.com/iTechArt-RubyLab/rails_template/actions/workflows/fasterer_linter.yml/badge.svg)
 ![Security](https://github.com/iTechArt-RubyLab/rails_template/actions/workflows/security.yml/badge.svg)
 
-# README
+<h1>DESCRIPTION</h1>
 
 Rails Template is a base skeleton Ruby On Rails project with extensibility and best practises concepts in mind. It is served as a starter project for potentially any new RoR application. Only essentials  are included so that a developer not bound to reverting bulk parts of code.
 
@@ -30,7 +30,52 @@ There are some popular gems for detecting security vulnerabilities, patch-level 
 Testing is heavily based on RSpec.
 
 Live and configured CI / CD is presently performed by GitHub Actions and AWS. There are currently some workflows to test and lint the project. Once done, it can be automatically deployed to AWS Elastic Beanstalk using modern Linux 2 instances.
+<br>
+<h2>ENV</h2>
+When working with the application, please, care to create a .env file in the project root specifying the following:
 
+RACK_ENV\
+RAILS_ENV
+
+DB_USER\
+DB_PASSWORD\
+DB_HOST\
+DB_PORT\
+DB_DEVELOPMENT_NAME\
+DB_TEST_NAME\
+DB_NAME\
+DB_CONNECT_TIMEOUT
+
+PORT\
+RAILS_MAX_THREADS
+
+REDIS_URL
+
+SIDEKIQ_CONCURRENCY\
+SIDEKIQ_TIMEOUT_SECONDS
+
+ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY\
+ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY\
+ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT
+
+OTP_SECRET_KEY\
+OTP_TWO_FACTOR_AUTHENTICATION_ISSUER_NAME
+
+SLACK_API_TOKEN\
+SLACK_CHANNEL
+
+TELEGRAM_API_TOKEN\
+TELEGRAM_CHAT_ID
+
+GOOGLE_CLIENT_ID\
+GOOGLE_CLIENT_SECRET
+
+GITHUB_CLIENT_ID\
+GITHUB_CLIENT_SECRET
+
+DEVISE_JWT_SECRET_KEY
+<br>
+<br>
 
 curl -v -X POST http://localhost:3001/api/users/sign_up -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{"api_user": {"email":"api_user_example@test.com", "password":"123456", "password_confirmation":"123456"}}'
 
