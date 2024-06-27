@@ -84,7 +84,7 @@ gem 'sidekiq-throttled', '~> 1.3'
 gem 'sidekiq-failures', '~> 1.0', '>= 1.0.4'
 
 
-# Exceptions, performance, metrics, notifications
+# Exceptions, metrics, notifications
 
 # Managing application errors
 gem 'honeybadger', '~> 5.4', '>= 5.4.1'
