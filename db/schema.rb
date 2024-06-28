@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_03_091132) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_193041) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -143,4 +143,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_091132) do
   end
 
   add_foreign_key "users", "users", column: "invited_by_id"
+
+  create_view "users_with_roles", sql_definition: <<-SQL
+      SELECT users.name,
+      users.email,
+      users.provider,
+      roles.name AS role
+     FROM ((users_roles
+       JOIN users ON ((users.id = users_roles.user_id)))
+       JOIN roles ON ((roles.id = users_roles.role_id)))
+    ORDER BY users.name, users.email, roles.name;
+  SQL
 end
