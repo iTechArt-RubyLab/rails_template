@@ -89,3 +89,40 @@ curl -X GET 'localhost:3001/api/v1/users' -H 'Content-Type: application/json' -H
 curl -X GET 'localhost:3001/api/v1/users/1' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Authorization: Bearer XYZ'
 
 curl -X GET 'localhost:3001/api/v1/current_user' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Authorization: Bearer XYZ'
+<br>
+<h2>AWS | Github Actions</h2>
+
+There's a pipeline set to deploy the template application to AWS using Github Actions. Please, consider reviewing
+staging_cd github workflow. 'Staging' naming convention implies volatility of the pipeline and that further discretion from
+DevOps team is advised.
+
+Please, set the following secrets under 'Actions secrets and variables' tab.
+
+AWS_ACCESS_KEY_ID\
+AWS_REGION\
+AWS_SECRET_ACCESS_KEY
+
+EB_APP_NAME\
+EB_APP_PACKAGE_S3_BUCKET
+
+STAGING_EB_APP_PACKAGE_S3_KEY_SUBFOLDER\
+STAGING_EB_WEB_ENV_NAME
+
+EB stands for Elastic Beanstalk which is the AWS orchestration service that is used to deploy the application. Please, pay
+attention to .ebextensions folder that contains some custom Elastic Beanstalk configurations.
+
+Additional Elastic Beanstalk environment variables should contain the following:
+
+BUNDLER_DEPLOYMENT_MODE=TRUE\
+BUNDLE_WITHOUT=test:development\
+RACK_ENV=staging\
+RAILS_ENV=staging
+RAILS_SKIP_ASSET_COMPILATION=FALSE\
+RAILS_SKIP_MIGRATIONS=FALSE
+
+Some other AWS services needed to deploy the application are VPC, S3, RDS and ElastiCache
+
+Please, notice that the pipeline is only set to deploy Web server tier. Most likely, you will have a need to perform
+asynchronous tasks in your application, so a pool of Worker tiers within Elastic Beanstalk service has to be provisioned.
+In that case you are to prepare your Elastic Beanstalk Web tier, uncomment 'Deploy new application version to elastic beanstalk staging worker tier' step
+and set STAGING_EB_WORKER_ENV_NAME secret.
